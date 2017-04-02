@@ -146,7 +146,7 @@
                     $("#" + id).css("background-color", "#CCCCCC");
                 } else {
                     query.geo.splice(index, 1);
-                    $("#" + id).css("background-color", "rgba(255, 255, 255, 153)");
+                    $("#" + id).css("background-color", "rgba(255, 255, 255, 0.6)");
                 }
             } else if (question == 3) {
                 index = query.activities.indexOf(answer);
@@ -155,7 +155,7 @@
                     $("#" + id).css("background-color", "#CCCCCC");
                 } else {
                     query.activities.splice(index, 1);
-                    $("#" + id).css("background-color", "rgba(255, 255, 255, 153)");
+                    $("#" + id).css("background-color", "rgba(255, 255, 255, 0.6)");
                 }
             }
         });
