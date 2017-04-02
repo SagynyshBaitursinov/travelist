@@ -4,7 +4,6 @@ import dto.LocationDto;
 import models.Location;
 import play.mvc.Before;
 import play.mvc.Controller;
-import play.mvc.results.Result;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,7 +59,11 @@ public class Application extends Controller {
         }
         //TODO: Add climate filter
         if (maximumCost == null) {
-            renderJSON(new LocationDto(new Location(-1L)));
+            if (result == null || result.isEmpty()) {
+                renderJSON(new LocationDto(new Location(-1L)));
+            } else {
+                renderJSON(new LocationDto(result.get(0)));
+            }
         }
         renderJSON(new LocationDto(maximumCost));
     }
