@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>TraveList</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" media="screen" href="@{'/public/stylesheets/test.css'}">
+    <link rel="stylesheet" media="screen" href="@{'/public/stylesheets/rangeinput.css'}">
+    <link href="https://fonts.googleapis.com/css?family=Pragati+Narrow" rel="stylesheet">
+    <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <style>
+        body {
+            background-image: url(/public/images/${backgroundStr}.jpg) !important;
+            background-size: cover;
+        }
+    </style>
+</head>
+<body>
+    <div class="main">
+        <div class="question1">
+            <div class="title">GEOGRAPHY</div>
+            <div>
+                <div id="q1-1" class="border choise q1">
+                    <img class="img" src="/public/icons/3.png">
+                    <div class="choise-text">Mountains</div>
+                </div>
+                <div id="q1-2" class="border choise q1">
+                    <img class="img" src="/public/icons/16.png">
+                    <div class="choise-text">Beach</div>
+                </div>
+                <div id="q1-3" class="border choise q1">
+                    <img class="img" src="/public/icons/10.png">
+                    <div class="choise-text">Forest</div>
+                </div>
+                <div id="q1-4" class="border choise q1">
+                    <img class="img" src="/public/icons/8.png">
+                    <div class="choise-text">Steppe/Desert</div>
+                </div>
+                <div id="q1-5" class="border choise q1">
+                    <img class="img" src="/public/icons/2.png">
+                    <div class="choise-text">City</div>
+                </div>
+            </div>
+            <div style="margin-top: 30px" class="next">
+                Next
+            </div>
+        </div>
+        <div class="question2" style="display: none">
+            <div class="title">CLIMATE</div>
+            <img class="img" src="/public/icons/5.png" style="float: left">
+            <img class="img" src="/public/icons/14.png" style="float: right">
+            <input class="q2" type="range" min="1" max="3" value="0">
+            <div style="margin-top: 30px" class="next">
+                Next
+            </div>
+        </div>
+        <div class="question3" style="display: none">
+            <div class="title">ACTIVITIES</div>
+            <div>
+                <div id="q3-1" class="border choise q3" style="margin-bottom: 0px">
+                    <img class="img" src="/public/icons/12.png">
+                    <div class="choise-text">Shopping</div>
+                </div>
+                <div id="q3-2" class="border choise q3" style="margin-bottom: 0px">
+                    <img class="img" src="/public/icons/13.png">
+                    <div class="choise-text">Extreme</div>
+                </div>
+                <div id="q3-3" class="border choise q3" style="margin-bottom: 0px">
+                    <img class="img" src="/public/icons/15.png">
+                    <div class="choise-text">Sightseeing</div>
+                </div>
+                <div id="q3-4" class="border choise q3" style="margin-bottom: 0px">
+                    <img class="img" src="/public/icons/9.png">
+                    <div class="choise-text">Football</div>
+                </div>
+            </div>
+            <div>
+                <div id="q3-5" class="border choise q3" style="margin-bottom: 0px">
+                    <img class="img" src="/public/icons/4.png">
+                    <div class="choise-text">Relaxing</div>
+                </div>
+                <div id="q3-6" class="border choise q3" style="margin-bottom: 0px">
+                    <img class="img" src="/public/icons/11.png">
+                    <div class="choise-text">Camping</div>
+                </div>
+                <div id="q3-7" class="border choise q3" style="margin-bottom: 0px">
+                    <img class="img" src="/public/icons/7.png">
+                    <div class="choise-text">Bars/Clubs</div>
+                </div>
+                <div id="q3-8" class="border choise q3" style="margin-bottom: 0px">
+                    <img class="img" src="/public/icons/1.png">
+                    <div class="choise-text">Casino</div>
+                </div>
+            </div>
+            <div style="margin-top: 0px; padding-top: 30px" class="next">
+                Next
+            </div>
+        </div>
+        <div class="question4" style="display: none;">
+            <div class="title">FINANCES</div>
+            <div>
+                <img src="/public/icons/6.png" style="margin-right: 15px" class="img">
+                <div class="inline" style="width: 70%"><input class="q4" type="range" min="0" max="10000" value="0"></div>
+                <div id="money">$0</div>
+            </div>
+            <div style="margin-top: 30px" class="finish">
+                Result
+            </div>
+        </div>
+        <div class="results" style="display: none;">
+            <div>
+                <div style="display: inline-block" class="title">The perfect place for you is </div>
+                <div style="display: inline-block" id="location" class="title"></div>
+            </div>
+            <div>
+                <img id="finalimage" src="https://airastana.com/portals/6/Destination%20Guides/AlmatyDGWide.jpg" class="location-image">
+            </div>
+            <div style="margin: 15px">By tickets now</div>
+            <a href="https://aviata.kz/"><img src="https://aviata.kz/static/images/new/aviata-header-logo.png"/></a>
+        </div>
+        <div class="nothing" style="display: none;">
+            <div>
+                <div class="title" style="margin-top: 50px">We didn't find a perfect match for you</div>
+                <a href="/" class="title">Try again</a>
+            </div>
+        </div>
+    </div>
+    <script>
+        toastr.options.preventDuplicates = true;
+        var question = 1;
+        var query = {
+            geo: [],
+            climate: 0,
+            activities: [],
+            money: 0
+        }
+        $(".choise").click(function() {
+            var id = this.id;
+            var question = id.substring(1, 2);
+            var answer = id.substring(3, 4);
+            if (question == 1) {
+                index = query.geo.indexOf(answer);
+                if (index == -1) {
+                    query.geo[query.geo.length] = answer;
+                    $("#" + id).css("background-color", "#CCCCCC");
+                } else {
+                    query.geo.splice(index, 1);
+                    $("#" + id).css("background-color", "#FFFFFF99");
+                }
+            } else if (question == 3) {
+                index = query.activities.indexOf(answer);
+                if (index == -1) {
+                    query.activities[query.activities.length] = answer;
+                    $("#" + id).css("background-color", "#CCCCCC");
+                } else {
+                    query.activities.splice(index, 1);
+                    $("#" + id).css("background-color", "#FFFFFF99");
+                }
+            }
+        });
+        $(".next").click(function() {
+            if (question == 1 && query.geo.length == 0) {
+                toastr.warning("Choose at least something");
+            } else if (question == 3 && query.activities.length == 0) {
+                toastr.warning("Choose at least something");
+            } else {
+                question++;
+                $(".question" + (question - 1)).hide();
+                $(".question" + question).show();
+            }
+        });
+        $('.q2').on('input', function () {
+            query.climate = parseInt($('.q2').val());
+        });
+        $('.q4').on('input', function () {
+            $("#money").html("$" + $('.q4').val());
+            query.money = parseInt($('.q4').val());
+        });
+        $(".finish").click(function() {
+            $(".question4").hide();
+            $.post("/push", query).done(function(result) {
+                if (result.id != -1) {
+                    $("#location").html(result.name);
+                    $("#finalimage").attr("src", "/public/cities/" + result.name + ".jpg");
+                    $(".results").show();
+                } else {
+                    $(".nothing").show();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

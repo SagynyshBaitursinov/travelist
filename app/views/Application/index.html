@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>TraveList</title>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" media="screen" href="@{'/public/stylesheets/main.css'}">
+        <link href="https://fonts.googleapis.com/css?family=Pragati+Narrow" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+        <style>
+            body {
+                background-image: url(/public/images/${backgroundStr}.jpg) !important;
+                background-size: cover;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="main1">
+            <div class="logo">TRAVELIST</div>
+            <div class="description">Here you can choose where to spend your holiday</div>
+            <div class="start"><span class="text-button">START</span></div>
+        </div>
+    </body>
+    <script>
+        $(".start").click(function() {
+            window.location = "/test";
+        });
+    </script>
+</html>

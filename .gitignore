@@ -1,0 +1,8 @@
+*.iws
+*.ipr
+*.iml
+server.pid
+tmp/
+test/
+logs/
+/documentation
