@@ -114,7 +114,7 @@
                 <div style="display: inline-block" id="location" class="title"></div>
             </div>
             <div>
-                <img id="finalimage" src="https://airastana.com/portals/6/Destination%20Guides/AlmatyDGWide.jpg" class="location-image">
+                <img src="https://airastana.com/portals/6/Destination%20Guides/AlmatyDGWide.jpg" class="location-image">
             </div>
             <div style="margin: 15px">By tickets now</div>
             <a href="https://aviata.kz/"><img src="https://aviata.kz/static/images/new/aviata-header-logo.png"/></a>
@@ -135,6 +135,8 @@
             activities: [],
             money: 0
         }
+        $('.q4').val(0);
+        $('.q2').val(0);
         $(".choise").click(function() {
             var id = this.id;
             var question = id.substring(1, 2);
@@ -179,10 +181,11 @@
         });
         $(".finish").click(function() {
             $(".question4").hide();
+            $(".location-image").attr("src", "");
             $.post("/push", query).done(function(result) {
                 if (result.id != -1) {
                     $("#location").html(result.name);
-                    $("#finalimage").attr("src", "/public/cities/" + result.name + ".jpg");
+                    $(".location-image").attr("src", "/public/cities/" + result.name + ".jpg");
                     $(".results").show();
                 } else {
                     $(".nothing").show();
