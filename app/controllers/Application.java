@@ -31,7 +31,7 @@ public class Application extends Controller {
         List<Location> locations = Location.findAll();
         List<Location> result = new ArrayList<Location>();
         for (Location location: locations) {
-            if (location.maximumMoney <= money && location.climate == climate) {
+            if (location.maximumMoney <= money) {
                 result.add(location);
             }
         }
