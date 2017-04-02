@@ -31,40 +31,33 @@ public class Application extends Controller {
         List<Location> locations = Location.findAll();
         List<Location> result = new ArrayList<Location>();
         for (Location location: locations) {
-            boolean geographyValid = false;
-            boolean activitiesValid = false;
+            if (location.maximumMoney <= money && location.climate == climate) {
+                result.add(location);
+            }
+        }
+        Location finalResult = null;
+        int maxPoints = 0;
+        for (Location location: result) {
+            int points = 0;
             for (int i = 0; i < geo.length; i++) {
                 if (location.geography.contains(geo[i])) {
-                    geographyValid = true;
-                    break;
+                    points++;
                 }
             }
             for (int i = 0; i < activities.length; i++) {
                 if (location.activities.contains(activities[i])) {
-                    activitiesValid = true;
-                    break;
+                    points++;
                 }
             }
-            if (geographyValid && activitiesValid) {
-                result.add(location);
+            if (points > maxPoints) {
+                finalResult = location;
+                maxPoints = points;
             }
         }
-        int max = 0;
-        Location maximumCost = null;
-        for (Location location: result) {
-            if (location.maximumMoney >= max && location.maximumMoney <= money) {
-                max = location.maximumMoney;
-                maximumCost = location;
-            }
+        if (finalResult == null) {
+            renderJSON(new LocationDto(new Location(-1L)));
+        } else {
+            renderJSON(new LocationDto(finalResult));
         }
-        //TODO: Add climate filter
-        if (maximumCost == null) {
-            if (result == null || result.isEmpty()) {
-                renderJSON(new LocationDto(new Location(-1L)));
-            } else {
-                renderJSON(new LocationDto(result.get(0)));
-            }
-        }
-        renderJSON(new LocationDto(maximumCost));
     }
 }
